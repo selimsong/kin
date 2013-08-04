@@ -12,30 +12,16 @@ define( 'CRM_Path', basename(dirname( __FILE__ )) );
 add_action('admin_menu', 'register_my_custom_menu_page');
 
 
-function my_custom_submenu_page_callback() {
-	echo '<h3>My Custom Submenu Page</h3>';
-
-}
-
-
 register_activation_hook( __FILE__, 'ss_install' );
+
+$ss_db_version = '0.1';
 
 
 function register_my_custom_menu_page(){
 	add_menu_page('crm menue', '客户管理', 'manage_options', CRM_Path . '/default.php', '', '', 6 );
-	add_submenu_page(CRM_Path . '/default.php', 'new client', '新增客户', 'manage_options', 'my-custom-submenu-page', 'my_custom_submenu_page_callback' );
+	add_submenu_page(CRM_Path . '/default.php', 'new client', '新增客户', 'manage_options', CRM_Path . '/add_client.php');
+	add_submenu_page(CRM_Path . '/default.php', 'new client2', '设置', 'manage_options', 'my-custom-submenu-page', 'my_custom_submenu_page_callback' );
 }
-
-add_action('admin_menu', 'add_tools_menu');
-
-function add_tools_menu(){
-    add_submenu_page( 'tools.php', 'sub','sub', '', '', ''); 
-}
-
-
-
-
-$ss_db_version = '0.1';
 
 
 function ss_install(){
