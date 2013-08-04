@@ -2,51 +2,6 @@
 
 class List_Table extends WP_List_Table {
 	
-  public  $example_data = array(
-			array(
-					'ID'        => 1,
-					'client_name'     => '300',
-					'contact_person'    => 'R',
-					'mobile'  => 'Zach Snyder'
-			),
-			array(
-					'ID'        => 2,
-					'title'     => 'Eyes Wide Shut',
-					'rating'    => 'R',
-					'director'  => 'Stanley Kubrick'
-			),
-			array(
-					'ID'        => 3,
-					'title'     => 'Moulin Rouge!',
-					'rating'    => 'PG-13',
-					'director'  => 'Baz Luhrman'
-			),
-			array(
-					'ID'        => 4,
-					'title'     => 'Snow White',
-					'rating'    => 'G',
-					'director'  => 'Walt Disney'
-			),
-			array(
-					'ID'        => 5,
-					'title'     => 'Super 8',
-					'rating'    => 'PG-13',
-					'director'  => 'JJ Abrams'
-			),
-			array(
-					'ID'        => 6,
-					'title'     => 'The Fountain',
-					'rating'    => 'PG-13',
-					'director'  => 'Darren Aronofsky'
-			),
-			array(
-					'ID'        => 7,
-					'title'     => 'Watchmen',
-					'rating'    => 'R',
-					'director'  => 'Zach Snyder'
-			)
-	);
-	
    function __construct(){
 	  	global $status, $page;
 	  	parent::__construct( array(
@@ -69,7 +24,7 @@ class List_Table extends WP_List_Table {
 		}
 	}
 	
-	function column_title($item){
+	function column_client_name($item){
 	
 		//Build row actions
 		$actions = array(
@@ -79,7 +34,7 @@ class List_Table extends WP_List_Table {
 	
 		//Return the title contents
 		return sprintf('%1$s <span style="color:silver">(id:%2$s)</span>%3$s',
-				/*$1%s*/ $item['title'],
+				/*$1%s*/ $item['client_name'],
 				/*$2%s*/ $item['ID'],
 				/*$3%s*/ $this->row_actions($actions)
 		);
@@ -106,9 +61,9 @@ class List_Table extends WP_List_Table {
 	
 	function get_sortable_columns() {
 		$sortable_columns = array(
-				'client_name'     => array('title',false),     //true means it's already sorted
-				'contact_name'    => array('rating',false),
-				'mobile'  => array('director',false)
+				'client_name'     => array('client_name',false),     //true means it's already sorted
+				'contact_name'    => array('contact_name',false),
+				'mobile'  => array('mobile',false)
 		);
 		return $sortable_columns;
 	}
