@@ -28,14 +28,14 @@ class List_Table extends WP_List_Table {
 	
 		//Build row actions
 		$actions = array(
-				'edit'      => sprintf('<a href="?page=%s&action=%s&movie=%s">Edit</a>',$_REQUEST['page'],'edit',$item['ID']),
-				'delete'    => sprintf('<a href="?page=%s&action=%s&movie=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
+				'edit'      => sprintf('<a href="?page=%s&action=%s&movie=%s">Edit</a>',$_REQUEST['page'],'edit',$item['id']),
+				'delete'    => sprintf('<a href="?page=%s&action=%s&movie=%s">Delete</a>',$_REQUEST['page'],'delete',$item['id']),
 		);
 	
 		//Return the title contents
-		return sprintf('%1$s <span style="color:silver">(id:%2$s)</span>%3$s',
+		return sprintf('%1$s %3$s',
 				/*$1%s*/ $item['client_name'],
-				/*$2%s*/ $item['ID'],
+				/*$2%s*/ $item['id'],
 				/*$3%s*/ $this->row_actions($actions)
 		);
 	}
