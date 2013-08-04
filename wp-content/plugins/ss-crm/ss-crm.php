@@ -5,7 +5,6 @@ Description: Integrated Customer Relationship Management for WordPress.
 Author: selim song
 Version: 0.0.1
 */
-
 define( 'CRM_Path', basename(dirname( __FILE__ )) );
 
 
@@ -16,13 +15,17 @@ register_activation_hook( __FILE__, 'ss_install' );
 
 $ss_db_version = '0.1';
 
+add_action('init', 'app_output_buffer');
+
+function app_output_buffer() {
+	ob_start();
+}
 
 function register_my_custom_menu_page(){
 	add_menu_page('crm menue', '客户管理', 'manage_options', CRM_Path . '/default.php', '', '', 6 );
-	add_submenu_page(CRM_Path . '/default.php', 'new client', '新增客户', 'manage_options', CRM_Path . '/add_client.php');
+	add_submenu_page(CRM_Path . '/default.php', 'add client', '新增客户', 'manage_options', CRM_Path . '/add_client.php');
 	add_submenu_page(CRM_Path . '/default.php', 'new client2', '设置', 'manage_options', 'my-custom-submenu-page', 'my_custom_submenu_page_callback' );
 }
-
 
 function ss_install(){
 	global $wpdb, $ss_db_version;

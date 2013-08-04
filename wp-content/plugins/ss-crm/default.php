@@ -135,7 +135,14 @@ class List_Table extends WP_List_Table {
 		
 		$per_page = 5;
 	
-	
+	   
+		/**
+		 * REQUIRED for pagination. Let's figure out what page the user is currently
+		 * looking at. We'll need this later, so you should always include it in
+		 * your own package classes.
+		 */
+		$current_page = $this->get_pagenum();
+		
 		/**
 		 * REQUIRED. Now we need to define our column headers. This includes a complete
 		 * array of columns to be displayed (slugs & titles), a list of columns
@@ -173,8 +180,8 @@ class List_Table extends WP_List_Table {
 		 * use sort and pagination data to build a custom query instead, as you'll
 		 * be able to use your precisely-queried data immediately.
 		*/
-		$qry= "SELECT id, client_name, contact_name, mobile,
-				 remark FROM ".$wpdb->prefix."ss_crm";
+
+		$qry= "SELECT  count(*) as num  FROM ".$wpdb->prefix."ss_crm  ";
 		$data = $wpdb->get_results($qry, ARRAY_A);
 	    //$data = $this->example_data;
 	
@@ -197,29 +204,23 @@ class List_Table extends WP_List_Table {
 	
 	
 		/**
-		 * REQUIRED for pagination. Let's figure out what page the user is currently
-		 * looking at. We'll need this later, so you should always include it in
-		 * your own package classes.
-		*/
-		$current_page = $this->get_pagenum();
-	
-		/**
 		 * REQUIRED for pagination. Let's check how many items are in our data array.
 		 * In real-world use, this would be the total number of items in your database,
 		 * without filtering. We'll need this later, so you should always include it
 		 * in your own package classes.
 		*/
-		$total_items = count($data);
-	
+		$total_items = $data[0]['num'];
+	 
 	
 		/**
 		 * The WP_List_Table class does not handle pagination for us, so we need
 		 * to ensure that the data is trimmed to only the current page. We can use
 		 * array_slice() to
 		*/
-		$data = array_slice($data,(($current_page-1)*$per_page),$per_page);
-	
-	
+		$qry= "SELECT id, client_name, contact_name, mobile,
+				 remark FROM ".$wpdb->prefix."ss_crm limit ".(($current_page-1)*$per_page).", $per_page";
+		$data = $wpdb->get_results($qry, ARRAY_A);
+
 	
 		/**
 		 * REQUIRED. Now we can add our *sorted* data to the items property, where
