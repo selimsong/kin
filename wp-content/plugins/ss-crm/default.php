@@ -1,12 +1,13 @@
 <?php 
+
 class List_Table extends WP_List_Table {
 	
   public  $example_data = array(
 			array(
 					'ID'        => 1,
-					'title'     => '300',
-					'rating'    => 'R',
-					'director'  => 'Zach Snyder'
+					'client_name'     => '300',
+					'contact_person'    => 'R',
+					'mobile'  => 'Zach Snyder'
 			),
 			array(
 					'ID'        => 2,
@@ -58,8 +59,10 @@ class List_Table extends WP_List_Table {
 	
 	function column_default($item, $column_name){
 		switch($column_name){
-			case 'rating':
-			case 'director':
+			case 'client_name':
+			case 'contact_name':
+			case 'mobile':
+			case 'remark':
 				return $item[$column_name];
 			default:
 				return print_r($item,true); //Show the whole array for troubleshooting purposes
@@ -92,20 +95,20 @@ class List_Table extends WP_List_Table {
 	
 	function get_columns(){
 		$columns = array(
-				'cb'        => '<input type="checkbox" />', //Render a checkbox instead of text
-				'title'     => '客户名称',
-				'rating'    => '联系方式',
-				'director'  => '地址',
-				'director2'  => '地址2'
+				'cb'             => '<input type="checkbox" />', //Render a checkbox instead of text
+				'client_name'    => '客户名',
+				'contact_name'   => '联系人',
+				'mobile'         => '手机',
+				'remark'         => '备注'
 		);
 		return $columns;
 	}
 	
 	function get_sortable_columns() {
 		$sortable_columns = array(
-				'title'     => array('title',false),     //true means it's already sorted
-				'rating'    => array('rating',false),
-				'director'  => array('director',false)
+				'client_name'     => array('title',false),     //true means it's already sorted
+				'contact_name'    => array('rating',false),
+				'mobile'  => array('director',false)
 		);
 		return $sortable_columns;
 	}
@@ -121,7 +124,7 @@ class List_Table extends WP_List_Table {
 	
 		//Detect when a bulk action is being triggered...
 		if( 'delete'===$this->current_action() ) {
-			wp_die('Items deleted (or they would be if we had items to delete)!');
+			wp_die('Items deleted ');
 		}
 	
 	}
@@ -129,9 +132,7 @@ class List_Table extends WP_List_Table {
 	function prepare_items() {
 		global $wpdb; //This is used only if making any database queries
 	
-		/**
-		 * First, lets decide how many records per page to show
-		 */
+		
 		$per_page = 5;
 	
 	
@@ -172,8 +173,10 @@ class List_Table extends WP_List_Table {
 		 * use sort and pagination data to build a custom query instead, as you'll
 		 * be able to use your precisely-queried data immediately.
 		*/
-		$data = $this->example_data;
-	
+		$qry= "SELECT id, client_name, contact_name, mobile,
+				 remark FROM ".$wpdb->prefix."ss_crm";
+		$data = $wpdb->get_results($qry, ARRAY_A);
+	    //$data = $this->example_data;
 	
 		/**
 		 * This checks for sorting input and sorts the data in our array accordingly.
@@ -191,16 +194,6 @@ class List_Table extends WP_List_Table {
 		}
 		usort($data, 'usort_reorder');
 	
-	
-		/***********************************************************************
-		 * ---------------------------------------------------------------------
-		* vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-		*
-		* In a real-world situation, this is where you would place your query.
-		*
-		* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-		* ---------------------------------------------------------------------
-		**********************************************************************/
 	
 	
 		/**
@@ -257,7 +250,7 @@ $testListTable->prepare_items();
     <div class="wrap">
         
         <div id="icon-users" class="icon32"><br/></div>
-        <h2>List Table Test</h2>
+        <h2>客户列表</h2>
         
         <div style="background:#ECECEC;border:1px solid #CCC;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
             <p>demonstrates the use of the </p>
