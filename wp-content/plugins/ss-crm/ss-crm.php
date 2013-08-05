@@ -40,6 +40,9 @@ function client_list(){
 		    	$_message =  $_POST['client_name'] . ' 更新完成';
 		    }
 		}
+		if('add' == $_GET['action']){
+			$_message = '新增成功 !';
+		}
 	
 	    include_once(CRM_Path.'default.php');
 	}

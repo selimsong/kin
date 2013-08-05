@@ -2,7 +2,7 @@
 if (!empty($_POST['client_name'])){
 	$wpdb->insert( $wpdb->prefix . "ss_crm", array( 'client_name' =>  addslashes($_POST['client_name']), 
 	   'contact_name' => addslashes($_POST['contact_name']), 'mobile' => addslashes($_POST['mobile']),'remark' => addslashes($_POST['remark'])) );
-	wp_redirect('?page=client-list');
+	wp_redirect('?page=client-list&action=add');
 	exit();
 }
 

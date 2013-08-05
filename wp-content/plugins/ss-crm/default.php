@@ -244,7 +244,7 @@ $testListTable->prepare_items();
         <h2>客户列表</h2>
         <?php if (!empty($_message)):
           ?>
-        <div id="reminder" style="background:#ECECEC;color:red;border:1px solid #CCC;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
+        <div id="reminder" style="background:#ECECEC;color:red;border:1px solid #CCC;font-size:14px;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
             <p><?php echo $_message;  ?>  </p>
         </div>
         <?php  endif; ?>
