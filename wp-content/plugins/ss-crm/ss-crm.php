@@ -5,7 +5,7 @@ Description: Integrated Customer Relationship Management for WordPress.
 Author: selim song
 Version: 0.0.1
 */
-define( 'CRM_Path', basename(dirname( __FILE__ )) );
+define( 'CRM_Path', dirname(__FILE__) . "/");
 
 
 add_action('admin_menu', 'register_my_custom_menu_page');
@@ -29,9 +29,9 @@ function register_my_custom_menu_page(){
 
 function client_list(){
 	if ($_GET['action']) {
-		include_once  'edit_client.php';
+		include_once(CRM_Path.'edit_client.php');
 	}else{
-	   include_once  'default.php';
+	    include_once(CRM_Path.'default.php');
 	}
 	
 }
