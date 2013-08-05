@@ -265,7 +265,12 @@ $testListTable->prepare_items();
     </div>
 <script type="text/javascript">
 jQuery(document).ready(function(){
+	jQuery("#addclient").click(function(){
+        window.location.href = '?page=ss-crm/add_client.php';
+        return false;
+	});
 	jQuery("#reminder").fadeOut(3000);
+	
 });
 
 
