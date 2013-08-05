@@ -224,8 +224,7 @@ $testListTable->prepare_items();
     </div>
 <script type="text/javascript">
 jQuery(document).ready(function(){
-
-	jQuery("#reminder").fadeOut(4000);
+	jQuery("#reminder").fadeOut(3000);
 });
 
 
