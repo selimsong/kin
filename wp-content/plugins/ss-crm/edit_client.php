@@ -10,7 +10,7 @@ if (!empty($_GET['movie'])):
 <div id="icon-users" class="icon32"><br/></div>
 <h2><?php echo esc_html( "新增客户" ); ?></h2>
 
-<form method="post" action="?page=client-list&action=save">
+<form method="post" action="?page=client-list">
 <?php settings_fields('general'); ?>
 
 <table class="form-table">

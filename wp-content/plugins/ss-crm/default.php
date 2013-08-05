@@ -194,6 +194,41 @@ class List_Table extends WP_List_Table {
 		) );
 	}
 	
+	function display() {
+			extract( $this->_args );		
+			?>
+		<div class="tablenav top">
+			<div class="alignleft actions">
+				<select name="action">
+					<option value="-1" selected="selected">批量操作</option>
+					<option value="edit" class="hide-if-no-js">Edit</option>
+					<option value="trash">Move to Trash</option>
+				</select>
+				<input type="submit" name="" id="doaction" class="button action" value="Apply">
+				<input type="submit" name="" id="addclient" class="button action" value="新增客户">
+			</div>
+			<br class="clear">
+	    </div>	
+		<table class="wp-list-table <?php echo implode( ' ', $this->get_table_classes() ); ?>" cellspacing="0">
+			<thead>
+			<tr>
+				<?php $this->print_column_headers(); ?>
+			</tr>
+			</thead>
+			<tfoot>
+			<tr>
+				<?php $this->print_column_headers( false ); ?>
+			</tr>
+			</tfoot>
+			<tbody id="the-list"<?php if ( $singular ) echo " data-wp-lists='list:$singular'"; ?>>
+				<?php $this->display_rows_or_placeholder(); ?>
+			</tbody>
+		</table>
+		  <?php
+		  $this->display_tablenav( 'bottom' );
+	  }
+	
+	
 }
 
 //Create an instance of our package class...
@@ -213,6 +248,12 @@ $testListTable->prepare_items();
             <p><?php echo $_message;  ?>  </p>
         </div>
         <?php  endif; ?>
+      
+        <p class="search-box">
+			<label class="screen-reader-text" for="post-search-input">Search Posts:</label>
+			<input type="search" id="post-search-input" name="s" value="">
+			<input type="submit" name="" id="search-submit" class="button" value="Search Posts">
+		</p>
         <!-- Forms are NOT created automatically, so you need to wrap the table in one to use features like bulk actions -->
         <form id="movies-filter" method="get">
             <!-- For plugins, we also need to ensure that the form posts back to our current page -->
