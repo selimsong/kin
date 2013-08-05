@@ -22,10 +22,20 @@ function app_output_buffer() {
 }
 
 function register_my_custom_menu_page(){
-	add_menu_page('crm menue', '客户管理', 'manage_options', CRM_Path . '/default.php', '', '', 6 );
-	add_submenu_page(CRM_Path . '/default.php', 'add client', '新增客户', 'manage_options', CRM_Path . '/add_client.php');
-	add_submenu_page(CRM_Path . '/default.php', 'new client2', '设置', 'manage_options', 'my-custom-submenu-page', 'my_custom_submenu_page_callback' );
+	add_menu_page('crm menue', '客户管理', 'manage_options', 'client-list', 'client_list', '', 6 );
+	add_submenu_page('client-list', 'add client', '新增客户', 'manage_options', CRM_Path . '/add_client.php');
+	add_submenu_page('client-list', 'new client2', '设置', 'manage_options', 'my-custom-submenu-page', 'my_custom_submenu_page_callback' );
 }
+
+function client_list(){
+	if ($_GET['action']) {
+		include_once  'edit_client.php';
+	}else{
+	   include_once  'default.php';
+	}
+	
+}
+
 
 function ss_install(){
 	global $wpdb, $ss_db_version;
