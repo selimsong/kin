@@ -42,8 +42,13 @@ function client_list(){
 		}
 		if('add' == $_GET['action']){
 			$_message = '新增成功 !';
+		}elseif ('delete' == $_GET['action']){
+			$result = $wpdb->delete($wpdb->prefix.'ss_crm', array( 'id' => addslashes($_GET['movie']) ) );
+			if ($result){
+			   $_message = '删除成功 !';
+			}
 		}
-	
+	    
 	    include_once(CRM_Path.'default.php');
 	}
 	
