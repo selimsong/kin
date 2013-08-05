@@ -207,11 +207,12 @@ $testListTable->prepare_items();
         
         <div id="icon-users" class="icon32"><br/></div>
         <h2>客户列表</h2>
-        
-        <div style="background:#ECECEC;border:1px solid #CCC;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
-            <p>demonstrates the use of the </p>
+        <?php if (!empty($_message)):
+          ?>
+        <div id="reminder" style="background:#ECECEC;color:red;border:1px solid #CCC;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
+            <p><?php echo $_message;  ?>  </p>
         </div>
-        
+        <?php  endif; ?>
         <!-- Forms are NOT created automatically, so you need to wrap the table in one to use features like bulk actions -->
         <form id="movies-filter" method="get">
             <!-- For plugins, we also need to ensure that the form posts back to our current page -->
@@ -221,3 +222,11 @@ $testListTable->prepare_items();
         </form>
         
     </div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+
+	jQuery("#reminder").fadeOut(4000);
+});
+
+
+</script>

@@ -28,9 +28,19 @@ function register_my_custom_menu_page(){
 }
 
 function client_list(){
-	if ($_GET['action']) {
+	global $wpdb;
+	if ('edit' == $_GET['action']) {
 		include_once(CRM_Path.'edit_client.php');
 	}else{
+		$_message = NULL;
+		if (!empty($_POST['submit'])) {
+			$result = $wpdb->update($wpdb->prefix.'ss_crm', array( 'client_name' =>  addslashes($_POST['client_name']), 
+	           'contact_name' => addslashes($_POST['contact_name']), 'mobile' => addslashes($_POST['mobile']),'remark' => addslashes($_POST['remark'])), array( 'id' => addslashes($_POST['id']) ) );
+		    if ($result) {
+		    	$_message =  $_POST['client_name'] . ' 更新完成';
+		    }
+		}
+	
 	    include_once(CRM_Path.'default.php');
 	}
 	
