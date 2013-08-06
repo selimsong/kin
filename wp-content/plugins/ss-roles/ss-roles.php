@@ -8,7 +8,6 @@ Version: 0.0.1
 define( 'CRM_Path', dirname(__FILE__) . "/");
 require(ABSPATH . WPINC . '/pluggable.php');
 
-
 add_action('admin_menu', 'ss_roles_menu_page');
 
 
@@ -17,12 +16,10 @@ add_action('admin_menu', 'ss_roles_menu_page');
 function ss_roles_menu_page(){
 
 	add_submenu_page( 'users.php', 'Roles', 'Roles', 'manage_options', 'my-custom-submenu-page', 'ss_roles' );
-
 }
 
 function ss_roles() {
-	echo '<h3>My Custom Submenu Page</h3>';
-
+	include_once(CRM_Path.'default.php');
 }
 
 
