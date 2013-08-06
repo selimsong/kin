@@ -1,0 +1,1 @@
+1.extend the WP_Roles class,  then change the  wp-settings.php fiel  : $wp = new WP();
