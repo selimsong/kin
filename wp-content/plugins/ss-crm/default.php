@@ -79,7 +79,7 @@ class List_Table extends WP_List_Table {
 	
 		//Detect when a bulk action is being triggered...
 		if( 'delete'===$this->current_action() ) {
-			wp_die('Items deleted ');
+			//wp_die('Items deleted ');
 		}
 	
 	}
@@ -269,7 +269,7 @@ jQuery(document).ready(function(){
         window.location.href = '?page=ss-crm/add_client.php';
         return false;
 	});
-	jQuery("#reminder").fadeOut(3000);
+	jQuery("#reminder").fadeOut(2500);
 	
 });
 
