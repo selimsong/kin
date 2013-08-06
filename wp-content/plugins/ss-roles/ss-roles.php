@@ -11,11 +11,34 @@ require(ABSPATH . WPINC . '/pluggable.php');
 
 add_action('admin_menu', 'ss_roles_menu_page');
 
+
+
+
+function ss_roles_menu_page(){
+
+	add_submenu_page( 'users.php', 'Roles', 'Roles', 'manage_options', 'my-custom-submenu-page', 'ss_roles' );
+
+}
+
+function ss_roles() {
+	echo '<h3>My Custom Submenu Page</h3>';
+
+}
+
+
+
+
+
+
+/**
+
 $result = add_role('selim3', 'my sContributor3', array(
 		'read' => true, // True allows that capability
 		'edit_posts' => true,
 		'delete_posts' => false, // Use false to explicitly deny
 ));
+
+
 var_dump($result);
 if (null != $result) {
 	echo 'Yay!  New role created!';
@@ -64,17 +87,7 @@ $role->add_cap('level_0');
 
 
 
-function ss_roles_menu_page(){
-	global $current_screen;
-	add_submenu_page( 'users.php', 'Roles', 'Roles', 'manage_options', 'my-custom-submenu-page', 'my_custom_submenu_page_callback' ); 
-	//remove_menu_page('index.php');  level equal 0
-	
-}
 
-function my_custom_submenu_page_callback() {
-	echo '<h3>My Custom Submenu Page</h3>';
-
-}
 
 
 
