@@ -49,7 +49,7 @@ function client_list(){
 			}
 		}
 	    
-	    include_once(CRM_Path.'default.php');
+	    include_once(CRM_Path.'home.php');
 	}
 	
 }

@@ -5,7 +5,7 @@ Description: User Roles Management for WordPress.
 Author: selim song
 Version: 0.0.1
 */
-define( 'CRM_Path', dirname(__FILE__) . "/");
+define( 'ROLE_Path', dirname(__FILE__) . "/");
 require(ABSPATH . WPINC . '/pluggable.php');
 
 add_action('admin_menu', 'ss_roles_menu_page');
@@ -13,14 +13,14 @@ add_action('admin_menu', 'ss_roles_menu_page');
 
 function ss_roles_menu_page(){
 
-	add_submenu_page( 'users.php', 'Roles', 'Roles', 'manage_options', 'my-custom-submenu-page', 'ss_roles' );
+	add_submenu_page( 'users.php', 'Roles', 'Roles', 'manage_options', 'ss-role', 'ss_roles' );
 }
 
 function ss_roles() {
 	if ('add' == $_GET['action']) {
-		include_once(CRM_Path.'add_role.php');
+		include_once(ROLE_Path.'add_role.php');
 	}else{
-		include_once(CRM_Path.'default.php');
+		include_once(ROLE_Path.'home.php');
 	}
 	
 }
