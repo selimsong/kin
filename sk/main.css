@@ -1,0 +1,77 @@
+.header{
+	margin:0px;
+	padding:20px 0px 0px 0px;
+	height:90px;
+}
+.header .logoText{
+	margin:0px;
+	padding:0px 0px 0px 200px;
+
+}
+.logo {
+    display: block;
+    height: 50px;
+    text-indent: -9999px;
+    top: 44px;
+    transition: top 0.1s linear 0s;
+    width: 177px;
+}
+.logo, .playVideo, .view, .read, .playAudio, .mute {
+    background: url("http://mei94.com/css/../img/logo.png") no-repeat scroll 0 0 transparent;
+}
+
+.category {
+    background: url("images/public.border.png") no-repeat scroll 0 bottom #FFFFFF;
+    border-top: 3px solid #FF9900;
+    box-shadow: 2px 2px 8px #8C8C8C;
+    height: 250px;
+    overflow: hidden;
+    z-index: 1;
+}
+.category dl {
+    display: block;
+    float: left;
+    overflow: hidden;
+    padding: 10px 22px 0 10px;
+    position: relative;
+    width: 182px;
+    z-index: 10;
+}
+.category dt {
+    float: left;
+    margin: 0px 0px 4px 0px;
+    height: 18px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+.category dl a {
+    color: #333333;
+	text-decoration:none;
+}
+.category dd {
+    border-bottom: 1px solid #EFEFEF;
+    float: left;
+    width: 100%;
+	padding:0px 0px 2px 4px;
+}
+.category h3{
+    font-size: 100%;
+	font:bold 14px/18px "Microsoft Yahei";
+}
+dl span {
+    display: inline-block;
+    float: left;
+    height: 20px;
+    margin-right: 10px;
+    overflow: hidden;
+    width: 80px;
+	font:12px/1.5 arial,tahoma,宋体;
+}
+.title{
+	margin:5px 0px 3px 0px;
+	padding:0px 0px 0px 12px;
+	font:bold 14px/18px "Microsoft Yahei";
+	font-weight:bold;
+	color:#DD0000;
+}
