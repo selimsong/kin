@@ -14,14 +14,17 @@ class List_Table extends WP_List_Table {
 	
 	function column_default($item, $column_name){
 		switch($column_name){
-			case 'role_name':
+			case 'client_name':
+			case 'contact_name':
+			case 'mobile':
+			case 'remark':
 				return $item[$column_name];
 			default:
 				return print_r($item,true); //Show the whole array for troubleshooting purposes
 		}
 	}
 	
-	function column_role_name($item){
+	function column_client_name($item){
 	
 		//Build row actions
 		$actions = array(
@@ -31,7 +34,7 @@ class List_Table extends WP_List_Table {
 	
 		//Return the title contents
 		return sprintf('%1$s %3$s',
-				/*$1%s*/ $item['role_name'],
+				/*$1%s*/ $item['client_name'],
 				/*$2%s*/ $item['id'],
 				/*$3%s*/ $this->row_actions($actions)
 		);
@@ -39,23 +42,28 @@ class List_Table extends WP_List_Table {
 	
 	function column_cb($item){
 		return sprintf(
-				'<input type="checkbox" role_name="%1$s[]" value="%2$s" />',
+				'<input type="checkbox" name="%1$s[]" value="%2$s" />',
 				/*$1%s*/ $this->_args['singular'],  //Let's simply repurpose the table's singular label ("movie")
-				/*$2%s*/ $item['id']                //The value of the checkbox should be the record's id
+				/*$2%s*/ $item['ID']                //The value of the checkbox should be the record's id
 		);
 	}
 	
 	function get_columns(){
 		$columns = array(
 				'cb'             => '<input type="checkbox" />', //Render a checkbox instead of text
-				'role_name'    => 'User Role'
+				'client_name'    => '客户名',
+				'contact_name'   => '联系人',
+				'mobile'         => '手机',
+				'remark'         => '备注'
 		);
 		return $columns;
 	}
 	
 	function get_sortable_columns() {
 		$sortable_columns = array(
-				'role_name'     => array('role_name',false)     //true means it's already sorted
+				'client_name'     => array('client_name',false),     //true means it's already sorted
+				'contact_name'    => array('contact_name',false),
+				'mobile'  => array('mobile',false)
 		);
 		return $sortable_columns;
 	}
@@ -79,15 +87,9 @@ class List_Table extends WP_List_Table {
 	function prepare_items() {
 		global $wpdb; //This is used only if making any database queries
 	
+		
 		$per_page = 5;
-
-		$wp_roles = new WP_Roles();
-		$roles    = $wp_roles->roles;
-		print_r($roles);
-		$data = array();
-		foreach ($roles as $k=>$v){
-			$data[] = array('id' => $k, 'role_name' => $v['name']);
-		}
+	
 	   
 		/**
 		 * REQUIRED for pagination. Let's figure out what page the user is currently
@@ -134,7 +136,9 @@ class List_Table extends WP_List_Table {
 		 * be able to use your precisely-queried data immediately.
 		*/
 
-		
+		$qry= "SELECT  count(*) as num  FROM ".$wpdb->prefix."ss_crm  ";
+		$data = $wpdb->get_results($qry, ARRAY_A);
+	    //$data = $this->example_data;
 	
 		/**
 		 * This checks for sorting input and sorts the data in our array accordingly.
@@ -160,9 +164,17 @@ class List_Table extends WP_List_Table {
 		 * without filtering. We'll need this later, so you should always include it
 		 * in your own package classes.
 		*/
-		$total_items = count($data);
+		$total_items = $data[0]['num'];
 	 
-
+	
+		/**
+		 * The WP_List_Table class does not handle pagination for us, so we need
+		 * to ensure that the data is trimmed to only the current page. We can use
+		 * array_slice() to
+		*/
+		$qry= "SELECT id, client_name, contact_name, mobile,
+				 remark FROM ".$wpdb->prefix."ss_crm limit ".(($current_page-1)*$per_page).", $per_page";
+		$data = $wpdb->get_results($qry, ARRAY_A);
 
 	
 		/**
@@ -193,7 +205,7 @@ class List_Table extends WP_List_Table {
 					<option value="trash">Move to Trash</option>
 				</select>
 				<input type="submit" name="" id="doaction" class="button action" value="Apply">
-				<input type="submit" name="" id="addclient" class="button action" value="新增角色">
+				<input type="submit" name="" id="addclient" class="button action" value="新增客户">
 			</div>
 			<br class="clear">
 	    </div>	
@@ -227,8 +239,9 @@ $testListTable->prepare_items();
 ?>
 
     <div class="wrap">
+        
         <div id="icon-users" class="icon32"><br/></div>
-        <h2>用户角色</h2>
+        <h2>客户列表</h2>
         <?php if (!empty($_message)):
           ?>
         <div id="reminder" style="background:#ECECEC;color:red;border:1px solid #CCC;font-size:14px;padding:0 10px;margin-top:5px;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;">
@@ -252,8 +265,8 @@ $testListTable->prepare_items();
     </div>
 <script type="text/javascript">
 jQuery(document).ready(function(){
-	jQuery("#addclient").click(function(){			
-        window.location.href = '?page=<?php echo $_REQUEST['page'];  ?>&action=add';
+	jQuery("#addclient").click(function(){
+        window.location.href = '?page=ss-crm/add_client.php';
         return false;
 	});
 	jQuery("#reminder").fadeOut(2500);
